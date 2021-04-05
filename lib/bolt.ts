@@ -45,18 +45,19 @@ const handler = (receiver: Receiver) => {
     await say(`you entered username ${command.text}`)
   })
 
-  app.command("/chucknorris", async ({ ack, say }) => {
-    await ack()
-
-    const response = await fetch("https://api.chucknorris.io/jokes/random", {
+  app.command("/chucknorris", ({ ack, say }) => {
+    return fetch("https://api.chucknorris.io/jokes/random", {
       method: "GET"
     })
-
-    if (response) {
-      say(JSON.stringify(response.json()))
-    } else {
-      say("Sorry I could not tell you a chuck norris joke")
-    }
+      .then((response) => response.json())
+      .then((data) => {
+        ack()
+        say(data.value)
+      })
+      .catch((error) => {
+        ack()
+        say(error)
+      })
   })
 
   app.action("button_click", async ({ body, ack, say }) => {
