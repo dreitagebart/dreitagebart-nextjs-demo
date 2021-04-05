@@ -1,8 +1,12 @@
-import { AppProps } from "next/app"
 import "../styles/global.css"
 
-const App = ({ Component, pageProps }: AppProps) => {
-  return <Component {...pageProps} />
+interface Props {
+  Component: any
+  pageProps: any
+}
+
+const App: React.FC<Props> = ({ Component, pageProps }) => {
+  return <Component {...pageProps}></Component>
 }
 
 export default App

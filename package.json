@@ -8,7 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@slack/bolt": "^3.3.0",
+    "@types/getenv": "^1.0.0",
     "date-fns": "^2.11.1",
+    "dotenv": "^8.2.0",
+    "getenv": "^1.0.0",
     "gray-matter": "^4.0.2",
     "next": "^10.0.0",
     "react": "17.0.1",
