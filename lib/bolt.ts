@@ -39,6 +39,13 @@ const handler = (receiver: Receiver) => {
     await say(`you entered username ${command.text}`)
   })
 
+  app.command("/chucknorris", ({ command, ack, say }) => {
+    fetch("https://api.chucknorris.io/jokes/random").then((res: any) => {
+      ack()
+      say(res.value)
+    })
+  })
+
   app.action("button_click", async ({ body, ack, say }) => {
     await ack()
     await say(`<@${body.user.id}> clicked the button`)
