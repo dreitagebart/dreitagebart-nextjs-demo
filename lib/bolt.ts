@@ -48,7 +48,9 @@ const handler = (receiver: Receiver) => {
   app.command("/chucknorris", async ({ ack, say }) => {
     await ack()
 
-    const response = await fetch("https://api.chucknorris.io/jokes/random")
+    const response = await fetch("https://api.chucknorris.io/jokes/random", {
+      method: "GET"
+    })
 
     if (response) {
       say(JSON.stringify(response.json()))
