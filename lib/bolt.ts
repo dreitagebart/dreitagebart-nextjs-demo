@@ -48,10 +48,10 @@ const handler = (receiver: Receiver) => {
   app.command("/chucknorris", async ({ ack, say }) => {
     await ack()
 
-    const response: any = await fetch("https://api.chucknorris.io/jokes/random")
+    const response = await fetch("https://api.chucknorris.io/jokes/random")
 
     if (response) {
-      say(response.json().value)
+      say(JSON.stringify(response.json()))
     } else {
       say("Sorry I could not tell you a chuck norris joke")
     }
