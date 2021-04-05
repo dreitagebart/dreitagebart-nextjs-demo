@@ -1,11 +1,9 @@
 import { App, LogLevel, Receiver } from "@slack/bolt"
 
-import { config } from "../config"
-
 const handler = (receiver: Receiver) => {
   const app = new App({
     receiver,
-    token: config.token,
+    token: process.env.SLACK_BOT_TOKEN,
     logLevel: LogLevel.DEBUG
   })
 
