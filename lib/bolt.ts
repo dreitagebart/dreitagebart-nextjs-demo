@@ -1,4 +1,10 @@
-import { App, LogLevel, Receiver } from "@slack/bolt"
+import {
+  App,
+  LogLevel,
+  Receiver,
+  ReceiverMultipleAckError,
+  SayFn
+} from "@slack/bolt"
 
 const handler = (receiver: Receiver) => {
   const app = new App({
@@ -39,11 +45,16 @@ const handler = (receiver: Receiver) => {
     await say(`you entered username ${command.text}`)
   })
 
-  app.command("/chucknorris", ({ command, ack, say }) => {
-    fetch("https://api.chucknorris.io/jokes/random").then((res: any) => {
-      ack()
-      say(res.value)
-    })
+  app.command("/chucknorris", async ({ ack, say }) => {
+    await ack()
+
+    const response: any = await fetch("https://api.chucknorris.io/jokes/random")
+
+    if (response) {
+      say(response.json().value)
+    } else {
+      say("Sorry I could not tell you a chuck norris joke")
+    }
   })
 
   app.action("button_click", async ({ body, ack, say }) => {
